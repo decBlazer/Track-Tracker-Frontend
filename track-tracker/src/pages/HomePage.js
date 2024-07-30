@@ -1,22 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
-import NavBar from '../components/NavBar';
-import SearchBar from '../components/SearchBar';
-import RecommendationButton from '../components/RecommendationButton';
+import NavBar from '../components/reusable/NavBar';
+import SearchBar from '../components/reusable/SearchBar';
+import RecommendationButton from '../components/reusable/RecommendationButton';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
-    console.log('HomePage rendered'); // Debugging output
+
+    const navigate = useNavigate();
+
+    const navigateToSearch = () => {
+        navigate('/search');
+    };
+
   return (
-    <div>
-      <NavBar />
-      <MainContainer>
-        <WelcomeText>Welcome to Track Tracker!</WelcomeText>
-        <SearchText>Search for any track, any track you want.</SearchText>
-        <SearchBar />
-        <RecommendationText>Or look for recommendations!</RecommendationText>
-        <RecommendationButton />
-      </MainContainer>
-    </div>
+    <div style={{ height: '100%', margin: 0, padding: 0}}>
+    <NavBar />
+    <MainContainer>
+      <WelcomeText>Welcome to Track Tracker!</WelcomeText>
+      <SearchText>Search for any track, any track you want. (and review!)</SearchText>
+      <SearchBar onSearch={navigateToSearch} />
+      <RecommendationText>Or look for recommendations!</RecommendationText>
+      <RecommendationButton />
+    </MainContainer>
+  </div>
   );
 };
 
@@ -25,9 +32,10 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(to bottom, #4a7c59, #1d402f);
   color: white;
+    width: 100%;      
 `;
 
 const WelcomeText = styled.h1`

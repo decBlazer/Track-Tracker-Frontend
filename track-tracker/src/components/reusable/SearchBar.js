@@ -1,17 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
   return (
     <SearchContainer>
       <SearchInput placeholder="Search" />
-      <SearchButton>Search</SearchButton>
+      <SearchButton onClick={onSearch}>Search</SearchButton>
     </SearchContainer>
   );
 };
 
 const SearchContainer = styled.div`
-  display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 2rem;

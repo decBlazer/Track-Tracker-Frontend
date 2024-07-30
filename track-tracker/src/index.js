@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './components/app/App';
 
-// Use ReactDOM.createRoot if you are using React 18 or later
+import 'normalize.css';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
