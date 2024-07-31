@@ -33,8 +33,8 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
- background: linear-gradient(to bottom, #A1A1A1, #484747);
+  padding: 0rem 2rem;
+ background: linear-gradient(to bottom, #000000, #484747);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
   filter: brightness(1.1); /* Slight light effect */
   border-bottom: 2px solid #333; /* Bottom border */
@@ -42,6 +42,7 @@ const Nav = styled.nav`
 
 const Logo = styled.h1`
   font-size: 1.5rem;
+  color: white;
 `;
 
 const NavMenu = styled.ul`
@@ -52,16 +53,20 @@ const NavMenu = styled.ul`
 
 const NavItem = styled.li`
   cursor: pointer;
+  color: white;
 `;
 
 const AuthButtons = styled.div`
   display: flex;
   gap: 1rem;
+  color: white;
 `;
 
 const SignInButton = styled.button`
-  background: none;
+  background: black;
+  color: white;
   border: none;
+  padding: 0.5rem 1rem;
   cursor: pointer;
 `;
 

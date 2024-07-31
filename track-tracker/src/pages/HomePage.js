@@ -33,7 +33,7 @@ const MainContainer = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #4a7c59, #1d402f);
+  background: linear-gradient(to bottom, #075E6D, #1A1919);
   color: white;
     width: 100%;      
 `;
