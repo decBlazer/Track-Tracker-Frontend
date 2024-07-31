@@ -7,7 +7,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 
-import 'normalize.css';
+import 'normalize.css'; // Testing
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
