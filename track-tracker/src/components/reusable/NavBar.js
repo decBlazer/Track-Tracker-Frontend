@@ -16,6 +16,9 @@ const Navbar = () => {
         <NavItem>
           <StyledLink to="/friends">Friends</StyledLink>
         </NavItem>
+        <NavItem>
+          <StyledLink to="/search">Search</StyledLink>
+        </NavItem>
       </NavMenu>
       <AuthButtons>
         <StyledLink to="/signin">
