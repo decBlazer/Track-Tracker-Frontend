@@ -1,37 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import NavBar from '../components/reusable/NavBar';
 import SearchBar from '../components/reusable/SearchBar';
 import { useNavigate } from 'react-router-dom';
 import SongCard from '../components/reusable/SongCard';
+import axios from 'axios';
 
 const HomePage = () => {
 
-    const navigate = useNavigate();
+  const [songs, setSongs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const fetchSongs = async () => {
+        try {
+            const response = await axios.get('/random-songs');
+            setSongs(response.data.items);
+            setLoading(false);
+        } catch (err) {
+            setError('Failed to fetch songs');
+            setLoading(false);
+        }
+    };
+
+    fetchSongs();
+}, []);
+
+    const navigate = useNavigate();
     const navigateToSearch = (query) => {
       navigate(`/search?query=${encodeURIComponent(query)}`);
     };
 
-    const songs = [
-      {
-          artwork: 'https://i.scdn.co/image/ab67616d00001e02b3c1d5eacb5a6762c3d236b8',
-          name: 'Song Name 1',
-          artist: 'Artist Name 1',
-      },
-      {
-          artwork: 'https://i.scdn.co/image/ab67616d00001e02b3c1d5eacb5a6762c3d236b8',
-          name: 'Song Name 2',
-          artist: 'Artist Name 2',
-      },
-      {
-          artwork: 'https://i.scdn.co/image/ab67616d00001e02b3c1d5eacb5a6762c3d236b8',
-          name: 'Song Name 3',
-          artist: 'Artist Name 3',
-      },
-  ];
-
-
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
   return (
     <div style={{ height: '100%', margin: 0, padding: 0}}>
     <NavBar />
@@ -44,8 +46,10 @@ const HomePage = () => {
 
       <SongsContainer>
       {songs.map((song, index) => (
-                        <SongCard key={index} song={song} />
-                    ))}
+                    <li key={index}>
+                        {song.track.name} by {song.track.artists.map(artist => artist.name).join(', ')}
+                    </li>
+                ))}
       </SongsContainer>
 
     </MainContainer>

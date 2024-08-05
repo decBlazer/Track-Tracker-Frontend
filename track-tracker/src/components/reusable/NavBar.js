@@ -11,12 +11,6 @@ const Navbar = () => {
           <StyledLink to="/">Home</StyledLink>
         </NavItem>
         <NavItem>
-          <StyledLink to="/featured">Featured</StyledLink>
-        </NavItem>
-        <NavItem>
-          <StyledLink to="/friends">Friends</StyledLink>
-        </NavItem>
-        <NavItem>
           <StyledLink to="/search">Search</StyledLink>
         </NavItem>
       </NavMenu>
