@@ -5,7 +5,7 @@ const RandomSongs = () => {
     const [songs, setSongs] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/random-songs')
+        axios.get('https://localhost:8443/random-songs')
             .then(response => {
                 setSongs(response.data.items);
             })

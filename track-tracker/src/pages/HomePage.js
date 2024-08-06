@@ -15,7 +15,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchSongs = async () => {
         try {
-            const response = await axios.get('/random-songs');
+            const response = await axios.get('https://localhost:8443/random-songs');
             setSongs(response.data.items);
             setLoading(false);
         } catch (err) {
