@@ -7,25 +7,27 @@ import SongCard from '../components/reusable/SongCard';
 import axios from 'axios';
 
 const HomePage = () => {
-
-  const [songs, setSongs] = useState([]);
+  const [songInfo, setSongInfo] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchSongs = async () => {
-        try {
-            const response = await axios.get('https://localhost:8443/random-songs');
-            setSongs(response.data.items);
-            setLoading(false);
-        } catch (err) {
-            setError('Failed to fetch songs');
-            setLoading(false);
-        }
+      try {
+        const response = await axios.get('https://localhost:8443/random-songs');
+        console.log('API response:', response); // Debugging line
+
+        setSongInfo(response.data); // Update the state with API response
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching songs:', err); // Debugging line
+        setError('Failed to fetch songs');
+        setLoading(false);
+      }
     };
 
     fetchSongs();
-}, []);
+  }, []);
 
     const navigate = useNavigate();
     const navigateToSearch = (query) => {
@@ -34,28 +36,21 @@ const HomePage = () => {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
-  return (
-    <div style={{ height: '100%', margin: 0, padding: 0}}>
-    <NavBar />
-    <MainContainer>
-
-      <WelcomeText>Welcome to Track Tracker!</WelcomeText>
-
-      <SearchText>Search for any track, any track you want. (and review!)</SearchText>
-      <SearchBar onSearch={navigateToSearch} />
-
-      <SongsContainer>
-      {songs.map((song, index) => (
-                    <li key={index}>
-                        {song.track.name} by {song.track.artists.map(artist => artist.name).join(', ')}
-                    </li>
-                ))}
-      </SongsContainer>
-
-    </MainContainer>
-  </div>
-  );
-};
+    return (
+      <div style={{ height: '100%', margin: 0, padding: 0 }}>
+        <NavBar />
+        <MainContainer>
+          <WelcomeText>Welcome to Track Tracker!</WelcomeText>
+          <SearchText>Search for any track, any track you want. (and review!)</SearchText>
+          <SearchBar onSearch={navigateToSearch} />
+  
+          <SongsContainer>
+            <p>{songInfo}</p> {/* Render the song information */}
+          </SongsContainer>
+        </MainContainer>
+      </div>
+    );
+  };
 
 const MainContainer = styled.div`
   display: flex;

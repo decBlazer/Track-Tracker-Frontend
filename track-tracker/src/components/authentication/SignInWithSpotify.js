@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-
 function SignInWithSpotify() {
   const handleSignIn = () => {
-    window.location.href = 'http://localhost:8443/login';
-  };
+        // Redirect the browser to Spotify's authorization page
+        window.location.href = "http://localhost:8443/oauth2/authorization/spotify";;
+    };
+
 
   return (
     <MainContainer>
