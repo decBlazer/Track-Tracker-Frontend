@@ -10,6 +10,7 @@ const SongDetailPage = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
     const fetchSongDetails = async () => {
         try {
@@ -25,26 +26,32 @@ const SongDetailPage = () => {
     fetchSongDetails();
   }, [songId]);
 
- if (loading) return <LoadingText>Loading...</LoadingText>;
-  if (error) return <ErrorText>{error}</ErrorText>;
-  if (!song) return <ErrorText>No song data available</ErrorText>;
-
   return (
     <div style={{ height: '100%', margin: 0, padding: 0 }}>
-    <NavBar />
-    <Container>
-      {song.artwork ? (
-        <AlbumArt src={song.artwork} alt={`${song.name} artwork`} />
-      ) : (
-        <NoImageText>No album artwork available</NoImageText>
-      )}
-      <SongInfo>
-        <Title>{song.name || 'Unknown Title'}</Title>
-        <Artist>{song.artist || 'Unknown Artist'}</Artist>
-        <Album>{song.album || 'Unknown Album'}</Album>
-        <Description>{song.description || 'No description available'}</Description>
-      </SongInfo>
-    </Container>
+      <NavBar />
+      <Container>
+        {loading ? (
+          <LoadingText>Loading...</LoadingText>
+        ) : error ? (
+          <ErrorText>{error}</ErrorText>
+        ) : song ? (
+          <>
+            {song.artwork ? (
+              <AlbumArt src={song.artwork} alt={`${song.name} artwork`} />
+            ) : (
+              <NoImageText>No album artwork available</NoImageText>
+            )}
+            <SongInfo>
+              <Title>{song.name || 'Unknown Title'}</Title>
+              <Artist>{song.artist || 'Unknown Artist'}</Artist>
+              <Album>{song.album || 'Unknown Album'}</Album>
+              <Popularity>Popularity: {song.popularity.toFixed(1)}/100</Popularity>
+            </SongInfo>
+          </>
+        ) : (
+          <ErrorText>No song data available</ErrorText>
+        )}
+      </Container>
     </div>
   );
 };
@@ -105,4 +112,12 @@ const NoImageText = styled.p`
   color: #ccc;
   font-size: 1rem;
 `;
+
+const Popularity = styled.p`
+  font-size: 1rem;
+  margin-top: 10px;
+  color: #ddd;
+  text-align: center;
+`;
+
 export default SongDetailPage;
