@@ -2,27 +2,21 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import NavBar from '../components/reusable/NavBar';
 import SearchBar from '../components/reusable/SearchBar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import SongCard from '../components/reusable/SongCard';
 import axios from 'axios';
 
 const HomePage = () => {
-  const [songInfo, setSongInfo] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [songs, setSongs] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchSongs = async () => {
       try {
         const response = await axios.get('https://localhost:8443/random-songs');
-        console.log('API response:', response); // Debugging line
-
-        setSongInfo(response.data); // Update the state with API response
-        setLoading(false);
+        setSongs(response.data);
       } catch (err) {
-        console.error('Error fetching songs:', err); // Debugging line
         setError('Failed to fetch songs');
-        setLoading(false);
       }
     };
 
@@ -34,8 +28,8 @@ const HomePage = () => {
       navigate(`/search?query=${encodeURIComponent(query)}`);
     };
 
-    if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
+
     return (
       <div style={{ height: '100%', margin: 0, padding: 0 }}>
         <NavBar />
@@ -45,8 +39,12 @@ const HomePage = () => {
           <SearchBar onSearch={navigateToSearch} />
   
           <SongsContainer>
-            <p>{songInfo}</p> {/* Render the song information */}
-          </SongsContainer>
+          {songs.map((song) => (
+            <Link to={`/song/${song.id}`} key={song.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <SongCard song={song} />
+            </Link>
+          ))}
+        </SongsContainer>
         </MainContainer>
       </div>
     );

@@ -4,6 +4,7 @@ import HomePage from '../../pages/HomePage';
 import SearchPage from '../../pages/SearchPage.js';
 import SignInPage from '../../pages/Account/SignInPage.js';
 import SignUpPage from '../../pages/Account/SignUpPage.js';
+import SongDetailPage from '../../pages/SongDetailPage.js';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/search" element={<SearchPage />} /> {}
         <Route path="/signin" element={<SignInPage />} /> {}
         <Route path="/signup" element={<SignUpPage />} /> {}
+        <Route path="/song/:songId" element={<SongDetailPage />} /> {}
       </Routes>
     </Router>
   );
