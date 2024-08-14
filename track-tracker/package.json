@@ -23,8 +23,7 @@
     "styled-components": "^6.1.12",
     "web-vitals": "^2.1.4",
     "webpack": "^5.93.0",
-    "webpack-dev-server": "^5.0.4",
-    "proxy": "http://localhost:8443"
+    "webpack-dev-server": "^5.0.4"
   },
   "scripts": {
     "start": "react-scripts start",

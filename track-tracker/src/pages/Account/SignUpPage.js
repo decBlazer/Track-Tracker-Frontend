@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 function SignUpPage() {
   const handleSignInWithSpotify = () => {
-    window.location.href = 'http://localhost:8080/login';
+    window.location.href = 'http://localhost:8443/login';
   };
 
   return (

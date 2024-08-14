@@ -1,27 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { FaHome, FaSearch } from 'react-icons/fa';
 
-const Navbar = () => {
+const NavBar = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <Nav>
-      <Logo>Track Tracker</Logo>
-      <NavMenu>
-        <NavItem>
-          <StyledLink to="/">Home</StyledLink>
-        </NavItem>
-        <NavItem>
-          <StyledLink to="/search">Search</StyledLink>
-        </NavItem>
-      </NavMenu>
-      <AuthButtons>
-        <StyledLink to="/signin">
-          <SignInButton>Sign In</SignInButton>
+      <IconContainer>
+        <StyledLink to="/">
+          <FaHome size={24} />
         </StyledLink>
-        <StyledLink to="/signup">
-          <SignUpButton>Sign Up</SignUpButton>
-        </StyledLink>
-      </AuthButtons>
+      </IconContainer>
+      <SearchContainer
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {isHovered ? (
+          <SearchInput type="text" placeholder="Search..." autoFocus />
+        ) : (
+          <SearchButton>
+            <FaSearch size={20} />
+          </SearchButton>
+        )}
+      </SearchContainer>
     </Nav>
   );
 };
@@ -35,6 +38,10 @@ const Nav = styled.nav`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
   filter: brightness(1.1); /* Slight light effect */
   border-bottom: 2px solid #333; /* Bottom border */
+`;
+
+const IconContainer = styled.div`
+  color: white;
 `;
 
 const Logo = styled.h1`
@@ -80,4 +87,28 @@ const StyledLink = styled(Link)`
   color: inherit;
 `;
 
-export default Navbar;
+const SearchContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: ${({ isHovered }) => (isHovered ? '200px' : '50px')};
+  transition: width 0.3s ease;
+`;
+
+const SearchButton = styled.button`
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+`;
+
+const SearchInput = styled.input`
+  width: 200px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+`;
+
+export default NavBar;
