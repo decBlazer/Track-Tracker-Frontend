@@ -1,30 +1,45 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FaHome, FaSearch } from 'react-icons/fa';
+import { FaHome, FaSearch, FaUserCog } from 'react-icons/fa';
+import SignInWithSpotify from '../authentication/SignInWithSpotify';
 
 const NavBar = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <Nav>
-      <IconContainer>
-        <StyledLink to="/">
-          <FaHome size={24} />
-        </StyledLink>
-      </IconContainer>
-      <SearchContainer
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        {isHovered ? (
-          <SearchInput type="text" placeholder="Search..." autoFocus />
-        ) : (
-          <SearchButton>
-            <FaSearch size={20} />
-          </SearchButton>
-        )}
-      </SearchContainer>
+      <LeftContainer>
+        <Logo>Track Tracker</Logo>
+      </LeftContainer>
+      <CenterContainer>
+        <IconContainer>
+          <StyledLink to="/">
+            <FaHome size={24} />
+          </StyledLink>
+        </IconContainer>
+        <SearchContainer
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {isHovered ? (
+            <SearchInput type="text" placeholder="Search..." autoFocus />
+          ) : (
+            <SearchButton>
+              <FaSearch size={20} />
+            </SearchButton>
+          )}
+        </SearchContainer>
+      </CenterContainer>
+      <RightContainer>
+        <SignInWithSpotify />
+        <Spacer /> {/* Spacer for padding */}
+        <IconContainer>
+          <StyledLink to="/settings">
+            <FaUserCog size={24} />
+          </StyledLink>
+        </IconContainer>
+      </RightContainer>
     </Nav>
   );
 };
@@ -34,14 +49,32 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 0rem 2rem;
- background: linear-gradient(to bottom, #000000, #484747);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
-  filter: brightness(1.1); /* Slight light effect */
-  border-bottom: 2px solid #333; /* Bottom border */
+  background: linear-gradient(to bottom, #000000, #484747);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  filter: brightness(1.1);
+  border-bottom: 2px solid #333;
+  margin: 0;
 `;
 
-const IconContainer = styled.div`
-  color: white;
+const LeftContainer = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+`;
+
+const CenterContainer = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* Adds space between home and search */
+`;
+
+const RightContainer = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; /* Ensures vertical alignment */
 `;
 
 const Logo = styled.h1`
@@ -49,37 +82,8 @@ const Logo = styled.h1`
   color: white;
 `;
 
-const NavMenu = styled.ul`
-  display: flex;
-  list-style: none;
-  gap: 2rem;
-`;
-
-const NavItem = styled.li`
-  cursor: pointer;
+const IconContainer = styled.div`
   color: white;
-`;
-
-const AuthButtons = styled.div`
-  display: flex;
-  gap: 1rem;
-  color: white;
-`;
-
-const SignInButton = styled.button`
-  background: black;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-`;
-
-const SignUpButton = styled.button`
-  background: black;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
 `;
 
 const StyledLink = styled(Link)`
@@ -92,7 +96,7 @@ const SearchContainer = styled.div`
   display: flex;
   align-items: center;
   width: ${({ isHovered }) => (isHovered ? '200px' : '50px')};
-  transition: width 0.3s ease;
+  transition: width 0.8s ease; /* Increased delay */
 `;
 
 const SearchButton = styled.button`
@@ -109,6 +113,10 @@ const SearchInput = styled.input`
   border: 1px solid #ccc;
   border-radius: 20px;
   outline: none;
+`;
+
+const Spacer = styled.div`
+  width: 20px;
 `;
 
 export default NavBar;

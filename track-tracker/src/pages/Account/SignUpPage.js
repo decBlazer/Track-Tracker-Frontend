@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 function SignUpPage() {
   const handleSignInWithSpotify = () => {
-    window.location.href = 'http://localhost:8443/login';
+    window.location.href = "https://localhost:8443/login/oauth2/code/spotify";;
   };
 
   return (
