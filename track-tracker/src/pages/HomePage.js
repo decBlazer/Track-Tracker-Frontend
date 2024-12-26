@@ -5,6 +5,7 @@ import SearchBar from '../components/reusable/SearchBar';
 import { useNavigate, Link } from 'react-router-dom';
 import SongCard from '../components/reusable/SongCard';
 import axios from 'axios';
+import StarRating from '../components/reusable/StarRating';
 
 const HomePage = () => {
   const [songs, setSongs] = useState([]);
@@ -28,6 +29,27 @@ const HomePage = () => {
       navigate(`/search?query=${encodeURIComponent(query)}`);
     };
 
+    const handleRate = async (songId, rating) => {
+      try {
+        const response = await fetch(`https://localhost:8443/song/${songId}/rate`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ rating }), // Send the rating in the request body
+        });
+    
+        if (response.ok) {
+          console.log('Rating submitted successfully');
+          // Optionally, refetch or update the song data here
+        } else {
+          console.error('Error submitting rating');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    
     if (error) return <p>{error}</p>;
 
     return (
@@ -41,7 +63,7 @@ const HomePage = () => {
           <SongsContainer>
           {songs.map((song) => (
             <Link to={`/song/${song.id}`} key={song.id} style={{ textDecoration: 'none', color: 'inherit' }}>
-              <SongCard song={song} />
+              <SongCard song={song} onRate ={handleRate} />
             </Link>
           ))}
         </SongsContainer>
